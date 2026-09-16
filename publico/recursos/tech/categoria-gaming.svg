@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Gaming">
+  <rect width="800" height="800" fill="#fff7ed"/>
+  <circle cx="590" cy="190" r="98" fill="#67e8f9" opacity=".74"/>
+  <path d="M210 345c26-54 86-78 190-60 104-18 164 6 190 60l54 128c22 52-28 100-75 64l-70-52H301l-70 52c-47 36-97-12-75-64z" fill="#111827"/>
+  <path d="M264 397h90M309 352v90" stroke="#e5e7eb" stroke-width="22" stroke-linecap="round"/>
+  <circle cx="505" cy="395" r="26" fill="#a3e635"/>
+  <circle cx="570" cy="438" r="26" fill="#f59e0b"/>
+</svg>

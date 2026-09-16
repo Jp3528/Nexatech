@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Audio">
+  <rect width="800" height="800" fill="#f0fdf4"/>
+  <circle cx="585" cy="210" r="96" fill="#67e8f9" opacity=".76"/>
+  <path d="M245 390c0-105 62-180 155-180s155 75 155 180" fill="none" stroke="#111827" stroke-width="44" stroke-linecap="round"/>
+  <rect x="170" y="370" width="120" height="210" rx="48" fill="#0f172a"/>
+  <rect x="510" y="370" width="120" height="210" rx="48" fill="#0f172a"/>
+  <rect x="204" y="415" width="52" height="120" rx="26" fill="#a3e635"/>
+  <rect x="544" y="415" width="52" height="120" rx="26" fill="#67e8f9"/>
+</svg>

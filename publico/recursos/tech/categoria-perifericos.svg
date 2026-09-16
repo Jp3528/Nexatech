@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Perifericos">
+  <rect width="800" height="800" fill="#f8fafc"/>
+  <rect x="140" y="210" width="520" height="170" rx="34" fill="#111827"/>
+  <g fill="#e5e7eb">
+    <rect x="185" y="250" width="44" height="28" rx="8"/>
+    <rect x="245" y="250" width="44" height="28" rx="8"/>
+    <rect x="305" y="250" width="44" height="28" rx="8"/>
+    <rect x="365" y="250" width="44" height="28" rx="8"/>
+    <rect x="425" y="250" width="44" height="28" rx="8"/>
+    <rect x="485" y="250" width="44" height="28" rx="8"/>
+    <rect x="545" y="250" width="44" height="28" rx="8"/>
+    <rect x="235" y="310" width="330" height="28" rx="12"/>
+  </g>
+  <ellipse cx="400" cy="535" rx="140" ry="92" fill="#0f172a"/>
+  <path d="M400 455v80" stroke="#67e8f9" stroke-width="14" stroke-linecap="round"/>
+  <circle cx="620" cy="575" r="86" fill="#a3e635" opacity=".82"/>
+</svg>

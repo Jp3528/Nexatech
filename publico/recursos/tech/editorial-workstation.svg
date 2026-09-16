@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1200" role="img" aria-label="Workstation tecnologica">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8fafc"/>
+      <stop offset=".55" stop-color="#dbeafe"/>
+      <stop offset="1" stop-color="#fef3c7"/>
+    </linearGradient>
+    <filter id="s"><feDropShadow dx="0" dy="20" stdDeviation="20" flood-color="#111827" flood-opacity=".18"/></filter>
+  </defs>
+  <rect width="960" height="1200" fill="url(#bg)"/>
+  <g opacity=".2" stroke="#334155" stroke-width="2">
+    <path d="M90 140h780M90 300h780M90 460h780M90 620h780M90 780h780M90 940h780"/>
+    <path d="M180 80v1040M360 80v1040M540 80v1040M720 80v1040"/>
+  </g>
+  <g filter="url(#s)">
+    <rect x="150" y="230" width="660" height="380" rx="36" fill="#0f172a"/>
+    <rect x="188" y="270" width="584" height="298" rx="24" fill="#082f49"/>
+    <path d="M250 342h230M250 410h330M250 478h190" stroke="#e0f2fe" stroke-width="18" stroke-linecap="round"/>
+    <circle cx="650" cy="402" r="74" fill="#a3e635"/>
+    <rect x="388" y="620" width="184" height="54" rx="16" fill="#475569"/>
+    <rect x="260" y="678" width="440" height="44" rx="22" fill="#111827"/>
+  </g>
+  <g filter="url(#s)">
+    <rect x="182" y="790" width="430" height="84" rx="28" fill="#111827"/>
+    <rect x="230" y="818" width="54" height="20" rx="6" fill="#e5e7eb"/>
+    <rect x="300" y="818" width="54" height="20" rx="6" fill="#67e8f9"/>
+    <rect x="370" y="818" width="54" height="20" rx="6" fill="#e5e7eb"/>
+    <rect x="440" y="818" width="54" height="20" rx="6" fill="#a3e635"/>
+    <ellipse cx="710" cy="833" rx="82" ry="48" fill="#0f172a"/>
+    <circle cx="710" cy="833" r="12" fill="#67e8f9"/>
+  </g>
+</svg>

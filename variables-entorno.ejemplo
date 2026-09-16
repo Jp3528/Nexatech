@@ -1,0 +1,25 @@
+# Server only. Never prefix secrets with VITE_. Do not commit .env.local.
+# NODE_ENV is set by the start command, not here (Vite reads this file too).
+CASAVIVA_DATABASE_URL=[DATO PENDIENTE]
+CASAVIVA_ORIGIN=http://127.0.0.1:3024
+CASAVIVA_PORT=3024
+# true is explicitly synthetic staging; false initializes an empty real catalog.
+CASAVIVA_DEMO=false
+# Local inbox only; no external account or email delivery.
+CASAVIVA_MAIL=local
+# For an external verified sender, use sendgrid and configure privately:
+CASAVIVA_MAIL_FROM=
+CASAVIVA_SENDGRID_KEY=
+# PayPal adapter prepared and tested with doubles; checkout remains disabled.
+CASAVIVA_PAYPAL_CLIENT_ID=
+CASAVIVA_PAYPAL_SECRET=
+CASAVIVA_PAYPAL_WEBHOOK_ID=
+CASAVIVA_PAYPAL_LIVE=false
+# Requires an explicitly approved conversion policy; never assume a rate.
+CASAVIVA_PAYPAL_PEN_PER_USD=0
+CASAVIVA_CONTENT_FILE=configuracion/contenido-tienda.json
+CASAVIVA_INDEXABLE=false
+
+# Correos separados por coma que pueden entrar a /admin en producción.
+CASAVIVA_ADMIN_EMAILS=
+

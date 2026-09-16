@@ -1,0 +1,19 @@
+[Unit]
+Description=CasaViva ecommerce
+After=network.target
+
+[Service]
+Type=simple
+User=casaviva
+WorkingDirectory=/opt/casaviva/ecommerce/casaviva
+EnvironmentFile=/etc/casaviva.env
+ExecStart=/usr/bin/node /opt/casaviva/ecommerce/node_modules/tsx/dist/cli.mjs server/production.ts
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

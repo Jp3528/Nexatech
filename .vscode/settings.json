@@ -1,0 +1,23 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.local-private": true,
+    "**/.validation": true,
+    "**/.vite": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.local-private": true,
+    "**/.validation": true,
+    "**/.vite": true
+  },
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "package.json": "package-lock.json, tsconfig.json, configuracion-vite.ts, configuracion-lint.json, variables-entorno.ejemplo, .gitignore",
+    "LEEME.md": "DOCUMENTACION_COMPLETA.md"
+  }
+}

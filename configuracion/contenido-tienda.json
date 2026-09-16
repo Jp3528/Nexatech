@@ -1,0 +1,15 @@
+{
+  "approved": true,
+  "company": "NexaTech",
+  "contactEmail": "hola@nexatech.local",
+  "pages": {
+    "Envíos": "Realizamos entregas coordinadas al domicilio registrado durante el checkout. Los equipos viajan con embalaje reforzado y el costo se calcula en el resumen del pedido; puede ser gratuito según el monto de compra vigente. Antes de confirmar, revisa dirección, distrito, referencia y teléfono para evitar demoras.",
+    "Devoluciones": "Puedes solicitar cambios o devoluciones si el producto tecnológico llega dañado, incompleto, no corresponde a tu pedido o presenta una falla validada dentro del periodo de revisión. Conserva caja, accesorios y número de serie legible para evaluar el caso desde tu cuenta.",
+    "Garantía": "NexaTech cubre fallas de fabricación bajo uso normal según la política de cada categoría. La garantía no cubre golpes, humedad, manipulación incorrecta, instalaciones no autorizadas, desgaste propio del uso o daños por variaciones eléctricas externas.",
+    "Contacto": "Escríbenos desde tu cuenta o por el correo hola@nexatech.local. Atendemos consultas sobre compatibilidad, stock, pedidos, pagos, entregas, cambios y disponibilidad.",
+    "Nuestra historia": "NexaTech nace para reunir tecnología útil, compatible y bien seleccionada para personas que trabajan, estudian, juegan y crean desde su propio setup. Priorizamos equipos con especificaciones claras, accesorios que resuelven problemas reales y compras sin ruido.",
+    "Privacidad": "Usamos tus datos para gestionar cuenta, pedidos, entregas, pagos, soporte y comunicaciones solicitadas. No compartimos información personal con terceros salvo cuando sea necesario para operar el servicio o cumplir obligaciones legales.",
+    "Términos": "Al comprar en NexaTech aceptas registrar información verdadera, revisar compatibilidad, dirección y pedido antes de confirmarlo, y respetar las condiciones de pago, entrega, garantía, cambios y devoluciones publicadas en la tienda.",
+    "Redes sociales": "Muy pronto compartiremos lanzamientos, guías de compra, comparativas y recomendaciones de setup NexaTech en nuestros canales oficiales."
+  }
+}
