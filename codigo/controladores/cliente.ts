@@ -2,6 +2,16 @@ import type { ShopController } from './controlador-tienda';
 import { DomainError } from '../modelos/dominio';
 import { validateResponse } from '../modelos/esquemas-api';
 // Only this HTTP boundary is shipped to the View. All mutations run on the server.
+type ApiBody = {
+  error?: unknown;
+  code?: unknown;
+  result?: unknown;
+};
+
+function asApiBody(value: unknown): ApiBody {
+  return value && typeof value === 'object' ? (value as ApiBody) : {};
+}
+
 async function call<T>(action: string, args: unknown[] = []): Promise<T> {
   let response: Response;
   try {
@@ -18,11 +28,20 @@ async function call<T>(action: string, args: unknown[] = []): Promise<T> {
       'network',
     );
   }
-  const body = await response.json();
+  const contentType = response.headers.get('content-type') || '';
+  if (!contentType.toLowerCase().includes('application/json')) {
+    throw new DomainError(
+      'La API no respondió correctamente. Revisa el despliegue del backend en Vercel.',
+      'unavailable',
+    );
+  }
+  const body = asApiBody(await response.json());
   if (!response.ok)
     throw new DomainError(
-      body.error || 'No se pudo completar la operación.',
-      body.code,
+      typeof body.error === 'string'
+        ? body.error
+        : 'No se pudo completar la operación.',
+      typeof body.code === 'string' ? body.code : 'unavailable',
     );
   return validateResponse(action, body.result) as T;
 }

@@ -43,6 +43,22 @@ npm run build
 
 El archivo real `.env.local` no se sube al repositorio. Usa `variables-entorno.ejemplo` como guia para crear tu configuracion local.
 
+## Despliegue en Vercel con PostgreSQL
+
+El repositorio incluye `vercel.json` y `api/[...path].ts` para publicar el frontend Vite junto con la API Express como Vercel Function. Antes de desplegar, crea una base PostgreSQL externa, por ejemplo Neon, y agrega estas variables en Vercel:
+
+```txt
+CASAVIVA_DATABASE_URL=postgresql://...
+CASAVIVA_ORIGIN=https://tu-dominio.vercel.app
+CASAVIVA_ALLOWED_ORIGINS=
+CASAVIVA_DEMO=true
+CASAVIVA_MAIL=disabled
+CASAVIVA_INDEXABLE=false
+CASAVIVA_CONTENT_FILE=configuracion/contenido-tienda.json
+```
+
+Para una primera demo publica usa `CASAVIVA_DEMO=true`; con `false` la migracion crea una tienda real vacia para importar catalogo aprobado. El build de Vercel ejecuta `npm run db:migrate && npm run build`, por lo que la base debe estar disponible durante el despliegue.
+
 ## Estructura
 
 | Ruta | Contenido |

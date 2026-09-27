@@ -48,6 +48,27 @@ function originAliases(origin: string) {
   ];
 }
 
+function vercelOrigin(host: string | undefined) {
+  if (!host) return '';
+  const value = /^https?:\/\//i.test(host) ? host : 'https://' + host;
+  try {
+    return new URL(value).origin;
+  } catch {
+    return '';
+  }
+}
+
+function allowedOriginList(config: Config) {
+  return [
+    config.CASAVIVA_ORIGIN,
+    ...config.CASAVIVA_ALLOWED_ORIGINS.split(',')
+      .map((origin) => origin.trim())
+      .filter(Boolean),
+    vercelOrigin(process.env.VERCEL_URL),
+    vercelOrigin(process.env.VERCEL_PROJECT_PRODUCTION_URL),
+  ].filter(Boolean);
+}
+
 function hasAllowedOrigin(header: unknown, origins: string[]) {
   return typeof header === 'string' && origins.includes(header);
 }
@@ -73,7 +94,9 @@ export function createApp(pool: pg.Pool, config: Config) {
   const outbox = mailProvider ? new MailOutbox(pool, mailProvider) : undefined;
   app.locals.mailOutbox = outbox;
   const storefront = readStorefront(config.CASAVIVA_CONTENT_FILE);
-  const allowedOrigins = originAliases(config.CASAVIVA_ORIGIN);
+  const allowedOrigins = [
+    ...new Set(allowedOriginList(config).flatMap(originAliases)),
+  ];
   const secure = config.CASAVIVA_ORIGIN.startsWith('https://');
   const cookieName = secure ? '__Host-casaviva_session' : 'casaviva_session';
   const adminEmails = new Set(

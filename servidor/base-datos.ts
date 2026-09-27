@@ -9,7 +9,7 @@ export const newToken = () => randomBytes(32).toString('hex');
 export function createPool(url: string) {
   const pool = new pg.Pool({
     connectionString: url,
-    max: 8,
+    max: Number(process.env.CASAVIVA_POOL_MAX || (process.env.VERCEL ? 1 : 8)),
     connectionTimeoutMillis: 5000,
     statement_timeout: 20000,
     application_name: 'casaviva',

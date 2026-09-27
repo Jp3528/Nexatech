@@ -1,11 +1,24 @@
 import { z } from 'zod';
+function vercelOrigin(env: NodeJS.ProcessEnv) {
+  const host = env.VERCEL_URL || env.VERCEL_PROJECT_PRODUCTION_URL;
+  if (!host) return undefined;
+  const value = /^https?:\/\//i.test(host) ? host : 'https://' + host;
+  try {
+    return new URL(value).origin;
+  } catch {
+    return undefined;
+  }
+}
 export function readConfig(env: NodeJS.ProcessEnv = process.env) {
   const schema = z.object({
     NODE_ENV: z
       .enum(['development', 'test', 'production'])
       .default('development'),
     CASAVIVA_DATABASE_URL: z.string().min(1),
-    CASAVIVA_ORIGIN: z.url().default('http://127.0.0.1:3024'),
+    CASAVIVA_ORIGIN: z
+      .url()
+      .default(vercelOrigin(env) || 'http://127.0.0.1:3024'),
+    CASAVIVA_ALLOWED_ORIGINS: z.string().default(''),
     CASAVIVA_PORT: z.coerce.number().int().min(1).max(65535).default(3024),
     CASAVIVA_DEMO: z.enum(['true', 'false']).default('false'),
     CASAVIVA_MAIL: z

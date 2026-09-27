@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx watch servidor/inicio.ts",
     "build": "vite build --config configuracion-vite.ts",
-    "lint": "oxlint -c configuracion-lint.json codigo servidor pruebas",
+    "lint": "oxlint -c configuracion-lint.json codigo servidor pruebas api",
     "typecheck": "tsc --noEmit",
     "test": "tsx --test pruebas/*.test.ts pruebas/*.test.tsx",
     "start": "tsx servidor/produccion.ts",
