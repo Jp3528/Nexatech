@@ -1,6 +1,6 @@
 # NexaTech
 
-![Vista previa de NexaTech](docs/preview.svg)
+![Vista previa de NexaTech](docs/preview.png)
 
 Sistema web para una tienda de tecnologia, construido con React, TypeScript, Vite, Express y PostgreSQL. Incluye catalogo, busqueda, detalle de producto, carrito, checkout, cuenta de usuario y un asistente de compras con respuestas locales.
 
