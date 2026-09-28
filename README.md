@@ -1,5 +1,7 @@
 # NexaTech
 
+![Vista previa de NexaTech](docs/preview.svg)
+
 Sistema web para una tienda de tecnologia, construido con React, TypeScript, Vite, Express y PostgreSQL. Incluye catalogo, busqueda, detalle de producto, carrito, checkout, cuenta de usuario y un asistente de compras con respuestas locales.
 
 ## Vista general
@@ -73,3 +75,7 @@ Para una primera demo publica usa `CASAVIVA_DEMO=true`; con `false` la migracion
 ## Nota
 
 Algunos nombres tecnicos internos se mantienen por compatibilidad con la base original, pero la experiencia visible del sistema esta orientada a NexaTech.
+
+## Enfoque de portafolio
+
+Proyecto pensado para demostrar una aplicacion full-stack con frontend moderno, API Express, base PostgreSQL opcional, pruebas automatizadas y despliegue preparado para Vercel.
