@@ -30,7 +30,7 @@ export class DemoRepository implements CommerceRepository {
     await this.queue;
     return structuredClone(this.state);
   }
-  transaction<T>(action: (state: State) => T | Promise<T>): Promise<T> {
+  transaction<T>(action: (state: State) => T | Promise<T>, _write = true): Promise<T> {
     const operation = this.queue.then(async () => {
       await this.check();
       const draft = structuredClone(this.state);

@@ -17,5 +17,8 @@ export interface State {
 // debe ejecutar autorización, reglas y transacciones en el servidor, nunca en la View.
 export interface CommerceRepository {
   read(): Promise<State>;
-  transaction<T>(action: (state: State) => T | Promise<T>): Promise<T>;
+  transaction<T>(
+    action: (state: State) => T | Promise<T>,
+    write?: boolean,
+  ): Promise<T>;
 }

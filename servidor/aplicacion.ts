@@ -285,6 +285,14 @@ export function createApp(pool: pg.Pool | null, config: Config) {
   app.use('/api', express.json({ limit: '32kb', strict: true }));
   app.post('/api/admin/:action', async (req, res) => {
     try {
+      if (
+        !hasAllowedOrigin(req.headers.origin, allowedOrigins) ||
+        (req.headers['sec-fetch-site'] &&
+          !['same-origin', 'none'].includes(
+            String(req.headers['sec-fetch-site']),
+          ))
+      )
+        return res.status(403).json({ error: 'Origen no autorizado.' });
       if (!req.is('application/json'))
         return res.status(415).json({ error: 'Formato no admitido.' });
       
@@ -314,10 +322,26 @@ export function createApp(pool: pg.Pool | null, config: Config) {
       const result =
         action === 'summary'
           ? await repository.transaction((s) => {
+              if (repository instanceof PostgresRepository) {
+                const user = s.users.find((u) => u.id === s.session);
+                if (!canAdmin(user?.email))
+                  throw new DomainError(
+                    'Inicia sesión con una cuenta administradora.',
+                    'unauthorized',
+                  );
+              }
               return adminSummary(s);
             }, false)
           : action === 'update-price'
             ? await repository.transaction((s) => {
+                if (repository instanceof PostgresRepository) {
+                  const user = s.users.find((u) => u.id === s.session);
+                  if (!canAdmin(user?.email))
+                    throw new DomainError(
+                      'Inicia sesión con una cuenta administradora.',
+                      'unauthorized',
+                    );
+                }
                 const data = adminUpdateSchema.parse(req.body);
                 const product = s.products.find((p) => p.id === data.productId);
                 const variant = product?.variants.find(
@@ -370,6 +394,14 @@ export function createApp(pool: pg.Pool | null, config: Config) {
   });
   app.post('/api/commerce/:action', async (req, res) => {
     try {
+      if (
+        !hasAllowedOrigin(req.headers.origin, allowedOrigins) ||
+        (req.headers['sec-fetch-site'] &&
+          !['same-origin', 'none'].includes(
+            String(req.headers['sec-fetch-site']),
+          ))
+      )
+        return res.status(403).json({ error: 'Origen no autorizado.' });
       if (!req.is('application/json'))
         return res.status(415).json({ error: 'Formato no admitido.' });
       const action = String(req.params.action);

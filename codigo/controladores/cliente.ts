@@ -2,6 +2,7 @@ import { ShopController } from './controlador-tienda';
 import { DemoRepository } from '../repositorios/repositorio-demo';
 import { DemoPaymentService } from '../servicios/servicio-pedidos';
 import { DomainError } from '../modelos/dominio';
+import type { Query } from '../modelos/dominio';
 import { validateResponse } from '../modelos/esquemas-api';
 
 const localDemoShop = new ShopController(
@@ -25,39 +26,46 @@ async function executeLocalDemo(action: string, args: unknown[]) {
       case 'snapshot':
         return await localDemoShop.snapshot();
       case 'products.list':
-        return await localDemoShop.products.list(args[0] as any);
+        return await localDemoShop.products.list(args[0] as Partial<Query>);
       case 'products.detail':
         return await localDemoShop.products.detail(args[0] as string);
       case 'auth.register':
-        return await localDemoShop.auth.register(args[0] as any);
+        return await localDemoShop.auth.register(args[0]);
       case 'auth.login':
-        return await localDemoShop.auth.login(args[0] as any);
+        return await localDemoShop.auth.login(args[0]);
       case 'auth.logout':
         return await localDemoShop.auth.logout();
       case 'auth.profile':
-        return await localDemoShop.auth.profile(args[0] as any);
+        return await localDemoShop.auth.profile(args[0]);
       case 'auth.address':
-        return await localDemoShop.auth.address(args[0] as any);
+        return await localDemoShop.auth.address(args[0]);
       case 'auth.removeAddress':
         return await localDemoShop.auth.removeAddress(args[0] as string);
       case 'auth.recover':
         return await localDemoShop.auth.recover(args[0] as string);
       case 'auth.reset':
-        return await localDemoShop.auth.reset(args[0] as any);
+        return await localDemoShop.auth.reset(args[0] as string, args[1] as string);
       case 'cart.change':
-        return await localDemoShop.cart.change(args[0] as any);
+        return await localDemoShop.cart.change(
+          args[0] as string,
+          args[1] as number,
+          args[2] as boolean,
+        );
       case 'cart.coupon':
-        return await localDemoShop.cart.coupon(args[0] as any);
+        return await localDemoShop.cart.coupon(args[0] as string);
       case 'cart.favorite':
-        return await localDemoShop.cart.favorite(args[0] as any);
+        return await localDemoShop.cart.favorite(args[0] as string);
       case 'orders.checkout':
-        return await localDemoShop.orders.checkout(args[0] as any);
+        return await localDemoShop.orders.checkout(args[0]);
       case 'orders.list':
         return await localDemoShop.orders.list();
       case 'orders.detail':
         return await localDemoShop.orders.detail(args[0] as string);
       case 'email.subscribe':
-        return await localDemoShop.email.subscribe(args[0] as string);
+        return await localDemoShop.email.subscribe(
+          args[0] as string,
+          args[1] as boolean,
+        );
       default:
         return await localDemoShop.snapshot();
     }
@@ -83,7 +91,7 @@ async function call<T>(action: string, args: unknown[] = []): Promise<T> {
         return validateResponse(action, body.result) as T;
       }
     }
-  } catch (err) {
+  } catch {
     console.info('Modo demostración interactivo activo.');
   }
 

@@ -12,8 +12,14 @@ function vercelOrigin(env: NodeJS.ProcessEnv) {
 }
 
 export function readConfig(env: NodeJS.ProcessEnv = process.env) {
-  const defaultOrigin = vercelOrigin(env) || (env.NODE_ENV === 'production' ? 'https://nexatech-taupe.vercel.app' : 'http://127.0.0.1:3024');
+  const runningOnVercel = Boolean(
+    env.VERCEL || env.VERCEL_URL || env.VERCEL_PROJECT_PRODUCTION_URL,
+  );
+  const defaultOrigin =
+    vercelOrigin(env) ||
+    (env.NODE_ENV === 'production' ? '' : 'http://127.0.0.1:3024');
   const dbUrl = env.CASAVIVA_DATABASE_URL || env.POSTGRES_URL || env.DATABASE_URL || '';
+  const demoDefault = dbUrl ? 'false' : 'true';
 
   const schema = z.object({
     NODE_ENV: z
@@ -25,7 +31,7 @@ export function readConfig(env: NodeJS.ProcessEnv = process.env) {
       .default(defaultOrigin),
     CASAVIVA_ALLOWED_ORIGINS: z.string().default(''),
     CASAVIVA_PORT: z.coerce.number().int().min(1).max(65535).default(3024),
-    CASAVIVA_DEMO: z.enum(['true', 'false']).default('true'),
+    CASAVIVA_DEMO: z.enum(['true', 'false']).default(demoDefault),
     CASAVIVA_MAIL: z
       .enum(['disabled', 'local', 'sendgrid'])
       .default('disabled'),
@@ -42,30 +48,24 @@ export function readConfig(env: NodeJS.ProcessEnv = process.env) {
   });
 
   const parsed = schema.safeParse(env);
-  if (!parsed.success) {
-    console.warn('Configuración parcial en NexaTech, usando valores seguros por defecto.');
-    return {
-      NODE_ENV: env.NODE_ENV === 'production' ? 'production' : 'development',
-      CASAVIVA_DATABASE_URL: dbUrl,
-      CASAVIVA_ORIGIN: defaultOrigin,
-      CASAVIVA_ALLOWED_ORIGINS: '',
-      CASAVIVA_PORT: 3024,
-      CASAVIVA_DEMO: 'true' as const,
-      CASAVIVA_MAIL: 'disabled' as const,
-      CASAVIVA_MAIL_FROM: '',
-      CASAVIVA_SENDGRID_KEY: '',
-      CASAVIVA_PAYPAL_CLIENT_ID: '',
-      CASAVIVA_PAYPAL_SECRET: '',
-      CASAVIVA_PAYPAL_WEBHOOK_ID: '',
-      CASAVIVA_PAYPAL_LIVE: 'false' as const,
-      CASAVIVA_PAYPAL_PEN_PER_USD: 0,
-      CASAVIVA_INDEXABLE: 'false' as const,
-      CASAVIVA_CONTENT_FILE: 'configuracion/contenido-tienda.json',
-      CASAVIVA_ADMIN_EMAILS: '',
-    };
-  }
+  if (!parsed.success)
+    throw new Error(
+      'Configuración inválida. Revisa variables-entorno.ejemplo; no se mostrarán valores sensibles.',
+    );
 
   const config = parsed.data;
+  if (!config.CASAVIVA_ORIGIN)
+    throw new Error('CASAVIVA_ORIGIN debe estar configurado.');
+  if (!config.CASAVIVA_DATABASE_URL && !runningOnVercel)
+    throw new Error('CASAVIVA_DATABASE_URL debe estar configurado.');
+  if (
+    config.NODE_ENV === 'production' &&
+    !config.CASAVIVA_ORIGIN.startsWith('https://')
+  )
+    throw new Error('Producción requiere CASAVIVA_ORIGIN con HTTPS.');
+  if (new URL(config.CASAVIVA_ORIGIN).origin !== config.CASAVIVA_ORIGIN)
+    throw new Error('CASAVIVA_ORIGIN debe contener solo el origen, sin rutas.');
+
   return config;
 }
 
