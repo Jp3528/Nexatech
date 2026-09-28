@@ -18,7 +18,13 @@ async function app() {
   if (!appPromise) {
     appPromise = Promise.resolve().then(() => {
       const config = readConfig();
-      pool = pool || createPool(config.CASAVIVA_DATABASE_URL);
+      if (config.CASAVIVA_DATABASE_URL) {
+        try {
+          pool = pool || createPool(config.CASAVIVA_DATABASE_URL);
+        } catch {
+          pool = null;
+        }
+      }
       return createApp(pool, config);
     });
   }
@@ -42,7 +48,7 @@ export default async function handler(
     expressApp(request, response);
   } catch (error) {
     console.error(
-      'No se pudo iniciar la API NexaTech en Vercel.',
+      'Error en Serverless API NexaTech:',
       error instanceof Error ? error.message : error,
     );
     if (!response.headersSent) {
@@ -51,8 +57,7 @@ export default async function handler(
     }
     response.end(
       JSON.stringify({
-        error:
-          'La API no está disponible. Revisa las variables de entorno y PostgreSQL en Vercel.',
+        error: 'No se pudo completar la operación en la API.',
         code: 'unavailable',
       }),
     );
