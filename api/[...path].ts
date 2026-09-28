@@ -1,1 +1,1 @@
-export { default, config } from './index';
+export { default, maxDuration } from './index';
